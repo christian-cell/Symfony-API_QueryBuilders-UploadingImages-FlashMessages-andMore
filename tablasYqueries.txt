@@ -1,0 +1,7 @@
+Una vez tenemos una entidad creada lo que podemos hacer es migrarla de la siguiente manera
+$ bin/console doctrine:schema:update --dump-sql
+
+Y acto seguido podemos hacer
+$ bin/console doctrine:schema:update --force
+
+de esta manera también nos habrá generado la entidad

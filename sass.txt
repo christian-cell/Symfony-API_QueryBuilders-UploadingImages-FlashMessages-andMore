@@ -1,0 +1,39 @@
+En primer lugar instalaremos Yarn con 
+$ yarn install
+
+Para ver la version que tenemos de yarn 
+$ yarn --version
+
+Ejecutamos el contenedor de php74-container
+$ docker exec -it php74-container bash
+
+Instalamos webpack-encore con composer 
+$ composer require symfony/webpack-encore-bundle
+
+Instalamos con node-sass y sass-loader
+$ yarn add sass-loader node-sass --dev
+
+Vamos a instalar bootstrap-4 pero esta vez con npm
+$ npm install bootstrap
+
+Ahora dentro de la carpeta assets vamos a crear las carpetas y archivos para el .scss y el .js
+
+Y dentro de nuestro archivo app.scss importamos bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+Creamos dentro del directorio js un archivo llamado app.js y pegamos dentro la configuracion
+
+Vamos a webpack.config.js y habilitamos a jquery y le damos las rutas de addEntry y addStyleEntry
+
+.addEntry('js/app', './assets/js/app.js')
+.addStyleEntry('css/app','./assets/css/app.scss')
+.autoProvidejQuery()
+
+PODEMOS correr el comando 
+$yarn run encore dev
+
+para ver si nos hace falta algo más ,quiza nos pida que instalemos jquery y popper de bootstrap
+$npm install --save jquery popper.js
+
+de nuevo 
+$yarn run encore dev
