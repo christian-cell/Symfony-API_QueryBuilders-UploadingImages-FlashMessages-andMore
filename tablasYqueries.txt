@@ -5,3 +5,17 @@ Y acto seguido podemos hacer
 $ bin/console doctrine:schema:update --force
 
 de esta manera también nos habrá generado la entidad
+
+Puede ser que alguna vez nos dé algún problema a la hora de iniciar sesion creando algún mensage con flash 
+esto lo solucionamos borrando las cookies y los datos de navegación
+
+Si ejecutamos en la consola 
+$ bin/console make
+nos mostrará una serie de comandos disponibles de make
+
+Si ejecutamos
+$ bin/console make:form 
+nos pedirá que antes instalemos form
+$ composer require form
+
+y nos hará una preguntas

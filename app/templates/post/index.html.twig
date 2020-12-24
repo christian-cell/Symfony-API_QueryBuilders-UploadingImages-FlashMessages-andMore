@@ -4,6 +4,15 @@
 {% endblock %}
 
 {% block body %}
+
+
+	{# {% for message in app.flashes('notice') %}
+		<div class="alert alert-notice">
+			{{ message }}
+		</div>
+	{% endfor %} #}
+
+
 	<div>
 		<div>
 			<h2>
@@ -20,12 +29,26 @@
 					<td>
 						Title
 					</td>
+					<td>
+						Actions
+					</td>
 				</thead>
 				<tbody>
 					{% for post in posts %}
 						<tr>
-							<td> {{post.id}} </td>
-							<td> {{post.title}} </td>
+							<td>
+								{{post.id}}
+							</td>
+							<td>
+								<a href="{{ path("post.show" , {id: post.id}) }}">
+									{{ post.title }}
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger" href="{{ path('post.delete' , {id: post.id}) }}">
+									Delete
+								</a>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>
