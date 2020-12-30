@@ -1,3 +1,11 @@
+SI DESEAMOS SUBIR UNA IMAGEN A DOCKERHUB HECHA con docker-compose donde ejercicios es la imagen
+hacemos docker login
+creamos un tag ejercicios:latest para la misma
+docker tag ejercicios christianphp/ejercicios:latest
+y la pusheamos
+docker push christianphp/ejercicios:latest
+
+
 Una vez tenemos una entidad creada lo que podemos hacer es migrarla de la siguiente manera
 $ bin/console doctrine:schema:update --dump-sql
 
@@ -16,6 +24,99 @@ nos mostrará una serie de comandos disponibles de make
 Si ejecutamos
 $ bin/console make:form 
 nos pedirá que antes instalemos form
+
+vamos al composer.json y añadimos en require "symfony/translation":"4.2*",
+después de esta línea debemos de realizar en console composer update
 $ composer require form
 
-y nos hará una preguntas
+cuando creamos la nueva plantilla templates/post/create.html.twig
+debemos usar esta configuración en config/packages/twig.yaml:
+
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_theme: 'bootstrap_4_layout.html.twig'
+
+
+Bastante importante "hay que tomar cuidado con las identaciones"
+si refrescamos el navegador vamos a ver que tenemos los estilos de bootstrap en nuestro formulario
+
+
+
+
+
+A LA HORA DE ESTAR CREANDO UN AUTH :primero necesitamos tener creado una entidad user
+bin/console make:user
+en este ejemplo vamos a darle nombre User
+vamos a guardar la info en la DDBB a través de doctrine
+el nombre de la clase será username
+
+Creamos también el autenticador
+bin/console make:auth
+
+
+Vamos a migrar la entidad de la manera que queramos
+bin/console make:migration  &&  bin/console doctrine:migrations:migrate
+
+bin/console doctrine:schema:update --dump-sql && bin/console doctrine:schema:update --force
+
+echaremos un vistazo al resto de las relaciones de doctrine
+
+
+VAMOS a añadir imagenes con uploading Files lesson
+vamos a añadir una configuración para images en src/Entity/Post.php  , para hacer efectivo esa modificación
+vamos a regenerar nuestra entidad post con 
+bin/console make:entity --regenerate
+
+esto nos habrá creado en src/Entity/Post.php  una función get y set para images
+
+PARA SUBIR IMAGENES VAMOS A INSTALAR CON composer
+composer require symfony/mime
+
+
+
+
+VAMOS A RELACIONAR VARIAS ENTIDADES : primero de todo
+
+Vamos a crear una entidad llamada category
+bin/console make:entity Category
+y vamos a darle esta configuración dentro de src/entity/post.php 
+
+/**
+* @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="post") 
+*/
+private $category;
+
+
+y también vamos a src/entity/category.php 
+
+/**
+* @ORM\OneToMany(targetEntity="App\Entity\Post" , mappedBy="category")
+*/
+private $post;
+
+y vamos a relacionarla
+
+Por ultimo con 
+
+bin/console make:entity --regenerate
+
+vamos a modificar las tablas post y category y ahí tenemos nuestra relación sql hecha con symfony
+
+Y NO OLVIDEMOS MIGRAR LAS TABLAS MODIFICADAS
+
+bin/console doctrine:schema:update --dump-sql && bin/console doctrine:schema:update --force
+
+podemos crear categorías manualment con INSER INTO category VALUES('tecnología')   por ejemplo y situarlas en los options 
+de nuestro formulario
+
+
+
+VAMOS A REALIZAR LAS QUERIES
+para ello vamos a src/repository/postRepository.php 
+tabién hechar un vistazo  a la función show/id del postController
+
+
+POR ÚLTIMO VAMOS CON LOS SERVICIOS
+vamos a crear un directorio dentro de src llamado services

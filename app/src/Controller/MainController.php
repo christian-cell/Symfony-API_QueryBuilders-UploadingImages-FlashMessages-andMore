@@ -77,17 +77,17 @@ class MainController extends AbstractController
 
     // Ahora vamos a empezar a renderizar en el navegador a través de las plantillas twig
     // Estamos renderizando el parámetro que escribimos por el buscador en la plantilla twig
-    /**
-     * @Route("/custom/{name?}", name="custom")
-     * @param Request $request
-     * @return Response
-     */
-    public function customize(Request $request)
-    {
-        // Con esta función vamos a saludar a alguien entwig
-        $name = $request->get('name');
-        return $this->render('home/custom.html.twig', [
-            'name' => $name
-        ]);
-    }
+    // /**
+    //  * @Route("/custom/{name?}", name="custom")
+    //  * @param Request $request
+    //  * @return Response
+    //  */
+    // public function customize(Request $request)
+    // {
+    //     // Con esta función vamos a saludar a alguien entwig
+    //     $name = $request->get('name');
+    //     return $this->render('home/custom.html.twig', [
+    //         'name' => $name
+    //     ]);
+    // }
 }

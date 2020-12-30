@@ -5,12 +5,20 @@
 
 {% block body %}
 
+	{% if app.user %}
+		<div class="mb-3">
+			You are logged in as
+			{{ app.user.username }},
+			<a href="{{ path('app_logout') }}">Logout</a>
+		</div>
+	{% endif %}
 
-	{# {% for message in app.flashes('notice') %}
-		<div class="alert alert-notice">
+
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success">
 			{{ message }}
 		</div>
-	{% endfor %} #}
+	{% endfor %}
 
 
 	<div>

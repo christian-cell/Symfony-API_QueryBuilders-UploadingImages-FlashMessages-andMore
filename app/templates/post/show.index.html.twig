@@ -4,8 +4,10 @@
 {% endblock %}
 {% block body %}
 
-	<div>
+	  <div>
       <h1> {{ post.title }} </h1>
+      <em> {{ post.category }} </em>
+      <img src="{{ '/uploads/' ~ post.image }}"/>
     </div>
 
 {% endblock %}

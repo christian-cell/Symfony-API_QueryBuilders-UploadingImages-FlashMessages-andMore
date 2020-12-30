@@ -21,14 +21,22 @@
 	<ul class="navbar-nav mr-auto">
 		<li class="nav-item active">
         {# Pasando variables del controller a twig #}
-			<a class="nav-link" href="{{ path('custom' , {name: 'beau carnes'}) }}">greet beau carnes
+			{# <a class="nav-link" href="{{ path('custom' , {name: 'beau carnes'}) }}">greet beau carnes
 				<span class="sr-only">(current)</span>
-			</a>
+			</a> #}
 		</li>
 		
 	</ul>
 	
-</div></nav><div class="container"> {% block body %}{% endblock %}
+</div></nav><div class="container"> 
+
+{% block body %}
+  {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+{% endblock %}
 </div>
 {% block javascripts %}
 <script src="{{ asset('build/js/app.js') }}" {% endblock %} </body> </html>
