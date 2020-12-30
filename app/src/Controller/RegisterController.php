@@ -17,7 +17,7 @@ class RegisterController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request ,UserPasswordEncoderInterface $passworEncoder)
+    public function register(Request $request, UserPasswordEncoderInterface $passworEncoder)
     {
 
         $form = $this->createFormBuilder()
@@ -27,35 +27,35 @@ class RegisterController extends AbstractController
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm Password'],
-                
+
             ])
-            ->add('register', SubmitType::class,[
+            ->add('register', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success btn-block float-right'
                 ]
             ])
             ->getForm();
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if($form->isSubmitted()){
-                $data=$form->getData();
-                $user = new User();
+        if ($form->isSubmitted()) {
+            $data = $form->getData();
+            $user = new User();
 
-                $user->setUsername($data['username']);
-                $user->setPassword(
-                    $passworEncoder->encodePassword($user , $data['password'])
-                );
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
+            $user->setUsername($data['username']);
+            $user->setPassword(
+                $passworEncoder->encodePassword($user, $data['password'])
+            );
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
 
-                return $this->redirect($this->generateUrl('app_login'));
-            }
+            return $this->redirect($this->generateUrl('app_login'));
+        }
 
 
         return $this->render('register/index.html.twig', [
-           'form' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 }
